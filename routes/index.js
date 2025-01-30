@@ -34,4 +34,15 @@ router.get("/get_products", (req, res) => {
   });
 });
 
+router.get("/get_top_products", (req, res) => {
+  db.query("SELECT * FROM items WHERE rating > 4", (err, results) => {
+    if (err) {
+      console.error("❌ Ошибка получения товаров:", err);
+      return res.status(500).json({ message: "Ошибка сервера" });
+    }
+    console.log("✔️ ТОП товары получены");
+    res.status(200).json(results);
+  });
+});
+
 module.exports = router;
